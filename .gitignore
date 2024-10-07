@@ -1,5 +1,3 @@
-/.idea/jpa-buddy.xml
-/.idea/misc.xml
-/.idea/modules.xml
-/.idea/pro_java_task_spring.iml
-/.idea/vcs.xml
+/.idea/**
+/**/*.class
+/target/**
