@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: payments
+
+app:
+  datasource:
+      classname: "org.postgresql.ds.PGSimpleDataSource"
+      servername: "localhost"
+      databaseName: "test_pro"
+      portnumber: "5433"
+      user: "tst_user"
+      password: "tst_pwd"
+
+logging:
+  level:
+    org.springframework.web: debug
+    org.apache: debug

@@ -1,5 +1,7 @@
 package ru.askir.spring.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import ru.askir.spring.dao.UserDao;
 import ru.askir.spring.dto.User;
@@ -11,6 +13,7 @@ import java.util.List;
 
 @Component
 public class UserDaoImpl implements UserDao {
+    private final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
     private final DataSource dataSource;
     private final Connection connection;
 
@@ -31,7 +34,7 @@ public class UserDaoImpl implements UserDao {
                 try (ResultSet keys = statement.getGeneratedKeys()) {
                     if(keys.next()) {
                         Long id = keys.getLong(1);
-                        System.out.println("Вставлена новая запись с id " + id);
+                        logger.debug("Вставлена новая запись с id " + id);
                         return new User(id, username);
                     }
                 }
@@ -54,7 +57,7 @@ public class UserDaoImpl implements UserDao {
 
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("Обновлена запись с id " + user.id());
+                logger.debug("Обновлена запись с id " + user.id());
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -63,15 +66,15 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void delete(User user) {
+    public void delete(Long id) {
         String sql = "DELETE FROM users WHERE id=?";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, user.id());
+            statement.setLong(1, id);
 
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
-                System.out.println("Запись успешно удалена");
+                logger.debug("Запись успешно удалена");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -79,14 +82,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findById(int user) {
+    public User findById(Long id) {
         String sql = "SELECT * FROM users WHERE id=?";
         try {
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setLong(1, id);
+            ResultSet result = statement.executeQuery();
 
             if (result.next()){
-                Long id = result.getLong("id");
                 String username = result.getString("username");
                 return new User(id, username);
             }
