@@ -4,14 +4,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.askir.spring.dto.User;
 import ru.askir.spring.service.UserService;
-
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;

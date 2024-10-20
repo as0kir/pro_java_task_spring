@@ -11,8 +11,8 @@ import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    ProductDao productDao;
-    UserService userService;
+    private final ProductDao productDao;
+    private final UserService userService;
 
     public ProductServiceImpl(ProductDao productDao, UserService userService) {
         this.productDao = productDao;
