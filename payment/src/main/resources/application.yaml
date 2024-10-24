@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: payment
+
+server:
+  port: 8081
+
+app:
+  base-path: http://localhost:8080/product
+
+logging:
+  level:
+    org.springframework.web: debug
+    org.apache: debug

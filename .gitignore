@@ -1,3 +1,7 @@
 /.idea/**
 /**/*.class
 /target/**
+/payment/payment.iml
+/payment/target/**
+/product/product.iml
+/product/target/**
