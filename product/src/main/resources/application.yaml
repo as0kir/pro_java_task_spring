@@ -2,11 +2,24 @@ spring:
   application:
     name: payments
 
+  flyway:
+    user: "postgres"
+    password: ${POSTRGRE_PWD}
+    url: "jdbc:postgresql://localhost:5433/test_pro3"
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+
 app:
   datasource:
       classname: "org.postgresql.ds.PGSimpleDataSource"
       servername: "localhost"
-      databaseName: "test_pro"
+      databaseName: "test_pro3"
       portnumber: "5433"
       user: "tst_user"
       password: "tst_pwd"
@@ -15,3 +28,4 @@ logging:
   level:
     org.springframework.web: debug
     org.apache: debug
+    org.flywaydb: debug
